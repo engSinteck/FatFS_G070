@@ -136,7 +136,7 @@ typedef enum
 #define NUCLEO_SPIx                                 SPI1
 #define NUCLEO_SPIx_CLK_ENABLE()                  __HAL_RCC_SPI1_CLK_ENABLE()
 
-#define NUCLEO_SPIx_SCK_AF                          GPIO_AF0_SPI1
+#define NUCLEO_SPIx_SCK_AF                          GPIO_AF1_SPI1
 #define NUCLEO_SPIx_SCK_GPIO_PORT                   GPIOD
 #define NUCLEO_SPIx_SCK_PIN                         GPIO_PIN_8
 #define NUCLEO_SPIx_SCK_GPIO_CLK_ENABLE()         __HAL_RCC_GPIOD_CLK_ENABLE()

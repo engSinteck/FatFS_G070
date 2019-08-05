@@ -41,6 +41,21 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+//FATFS FatFs;   /* Work area (filesystem object) for logical drive */
+//FIL fil;        /* File object */
+FATFS *pfs;
+char line[100]; /* Line buffer */
+FRESULT fr;     /* FatFs return code */
+DWORD fre_clust;
+uint32_t totalSpace, freeSpace;
+
+
+extern FATFS SDFatFs;    /* File system object for SD logical drive */
+extern FIL SDFile;       /* File  object for SD */
+extern char SDPath[];   /* SD logical drive path */
+
+
+
 
 /* USER CODE END PD */
 
@@ -171,7 +186,6 @@ int main(void)
     lv_disp_drv_register(&disp_drv);      //Finally register the driver
 
     ProcessStatus = MX_FATFS_Process();
-    ProcessStatus = MX_FATFS_Process();
     /* Call middleware background task */
     if (ProcessStatus == APP_ERROR)
     {
@@ -184,8 +198,65 @@ int main(void)
       //Success_Handler();
       sprintf(buffer, "STM32G070 FatFs - ProcessStatus OK...\n\r");
       HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
-    }
+      if(f_mount(&SDFatFs, "", 0) != FR_OK) {
+    	  sprintf(buffer, "STM32G070 FatFs - Mount Drive ERROR...\n\r");
+    	  HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      }
+      else {
+    	  sprintf(buffer, "STM32G070 FatFs - Mount Drive...\n\r");
+    	  HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      }
+      /* Open file to write */
+      	if(f_open(&SDFile, "first.txt", FA_OPEN_ALWAYS | FA_READ | FA_WRITE) != FR_OK) {
+      		sprintf(buffer, "STM32G070 FatFs - File Open Write ERROR...\n\r");
+      		HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      	}
+      	else {
+      		sprintf(buffer, "STM32G070 FatFs - File Open Write...\n\r");
+      		HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+          	/* Writing text */
+          	f_puts("STM32 SD Card I/O Example via SPI\n", &SDFile);
+          	f_puts("Save the world!!!", &SDFile);
+      	}
 
+      	/* Check freeSpace space */
+      	if(f_getfree("", &fre_clust, &pfs) != FR_OK){
+
+      	}
+
+      	totalSpace = (uint32_t)((pfs->n_fatent - 2) * pfs->csize * 0.5);
+      	freeSpace = (uint32_t)(fre_clust * pfs->csize * 0.5);
+
+      	sprintf(buffer, "STM32G070 FatFs - Total Space = %ld Free Space = %ld\n\r",totalSpace , freeSpace);
+      	HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+
+      /* Open a text file */
+      if(f_open(&SDFile, "message.txt", FA_READ) != FR_OK) {
+          sprintf(buffer, "STM32G070 FatFs - Open File Error...\n\r");
+          HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      }
+      else {
+          sprintf(buffer, "STM32G070 FatFs - Open File...\n\r");
+          HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+          // Read every line and display it
+          while (f_gets(line, sizeof line, &SDFile)) {
+              //printf(line);
+              sprintf(buffer, "STM32G070 FatFs - Read File...\n\r");
+              HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+          }
+      }
+
+      /* Close the file */
+      f_close(&SDFile);
+      if(f_mount(NULL, "", 1) != FR_OK) {
+          sprintf(buffer, "STM32G070 FatFs - Umount Drive ERROR...\n\r");
+          HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      }
+      else {
+          sprintf(buffer, "STM32G070 FatFs - Umount Drive...\n\r");
+          HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      }
+    }
 
   sprintf(buffer, "STM32G070 FatFs - INIC OK\n\r");
   HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
@@ -464,7 +535,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -504,7 +575,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
