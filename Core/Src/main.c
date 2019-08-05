@@ -217,6 +217,7 @@ int main(void)
           	/* Writing text */
           	f_puts("STM32 SD Card I/O Example via SPI\n", &SDFile);
           	f_puts("Save the world!!!", &SDFile);
+          	f_close(&SDFile);
       	}
 
       	/* Check freeSpace space */
@@ -241,13 +242,13 @@ int main(void)
           // Read every line and display it
           while (f_gets(line, sizeof line, &SDFile)) {
               //printf(line);
-              sprintf(buffer, "STM32G070 FatFs - Read File...\n\r");
+              sprintf(buffer, "STM32G070 FatFs - Read File... line: %s\n\r", line);
               HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+              /* Close the file */
+              f_close(&SDFile);
           }
       }
 
-      /* Close the file */
-      f_close(&SDFile);
       if(f_mount(NULL, "", 1) != FR_OK) {
           sprintf(buffer, "STM32G070 FatFs - Umount Drive ERROR...\n\r");
           HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
