@@ -1,5 +1,5 @@
-main.c:192:6:SystemClock_Config	112	static
-main.c:100:5:main	104	static
-main.c:765:6:Success_Handler	0	static
-main.c:782:6:HAL_TIM_PeriodElapsedCallback	8	static
-main.c:799:6:Error_Handler	0	static
+main.c:237:6:SystemClock_Config	112	static
+main.c:102:5:main	120	static
+main.c:810:6:Success_Handler	0	static
+main.c:827:6:HAL_TIM_PeriodElapsedCallback	16	static
+main.c:853:6:Error_Handler	0	static

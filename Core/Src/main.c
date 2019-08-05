@@ -32,7 +32,6 @@
 #include "misc.h"
 #include "key.h"
 #include "w25qxx.h"
-#include "log.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -70,6 +69,9 @@ UART_HandleTypeDef huart3;
 int32_t ProcessStatus = 0;
 char buffer[100] = {0};
 uint16_t tft_pwm;
+uint32_t timer_key = 0;
+static lv_disp_buf_t disp_buf;
+static lv_color_t buf[LV_HOR_RES_MAX * 10];		// Declare a buffer for 10 lines
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -152,8 +154,57 @@ int main(void)
   // Inicia Tecla
   KeyboardInit(0x01);
 
+
+  //lv_disp_buf_init(&disp_buf, buf, buf2, LV_HOR_RES_MAX * 10);    //Initialize the display buffer
+    lv_disp_buf_init(&disp_buf, buf, NULL, LV_HOR_RES_MAX * 10);    //Initialize the display buffer
+    //lv_log_register_print_cb(my_print);
+    lv_init();
+
+    // LVGL Setup
+    lv_disp_drv_t disp_drv;               //Descriptor of a display driver
+    lv_disp_drv_init(&disp_drv);          //Basic initialization
+    // TFT
+    disp_drv.hor_res = 160;               //Set the horizontal resolution
+    disp_drv.ver_res = 128;               //Set the vertical resolution
+    disp_drv.flush_cb = ST7735_Flush_3;	//Set your driver function
+    disp_drv.buffer = &disp_buf;          //Assign the buffer to teh display
+    lv_disp_drv_register(&disp_drv);      //Finally register the driver
+
+    ProcessStatus = MX_FATFS_Process();
+    ProcessStatus = MX_FATFS_Process();
+    /* Call middleware background task */
+    if (ProcessStatus == APP_ERROR)
+    {
+      //Error_Handler();
+      sprintf(buffer, "STM32G070 FatFs ProcessStatus Error...\n\r");
+      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+    }
+    else if (ProcessStatus == APP_OK)
+	{
+      //Success_Handler();
+      sprintf(buffer, "STM32G070 FatFs - ProcessStatus OK...\n\r");
+      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+    }
+
+
   sprintf(buffer, "STM32G070 FatFs - INIC OK\n\r");
   HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+
+
+  //
+  lv_obj_t * scr = lv_disp_get_scr_act(NULL);     /*Get the current screen*/
+
+  /*Create a Label on the currently active screen*/
+  lv_obj_t * label1 =  lv_label_create(scr, NULL);
+
+  /*Modify the Label's text*/
+  lv_label_set_text(label1, "STM32G070RB");
+
+  /* Align the Label to the center
+   * NULL means align on parent (which is the screen now)
+   * 0, 0 at the end means an x, y offset after alignment*/
+  lv_obj_align(label1, NULL, LV_ALIGN_CENTER, 0, 0);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -163,24 +214,18 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	    ProcessStatus = MX_FATFS_Process();
-	    /* Call middleware background task */
-	    if (ProcessStatus == APP_ERROR)
-	    {
-	      //Error_Handler();
-	      sprintf(buffer, "STM32G070 FatFs ProcessStatus Error...\n\r");
-	      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
-	    }
-	    else if (ProcessStatus == APP_OK)
-		{
-	      //Success_Handler();
-	      sprintf(buffer, "STM32G070 FatFs - ProcessStatus OK...\n\r");
-	      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
-	    }
+		  // Eventos de Teclado
+		  //KeyboardEvent();
+		  ButtonEvent();
+
+		  // Read Rotary Encoder
+		  Read_Encoder();
 
 	    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	    // Eventos da GUI LittleVG
+	  	  lv_task_handler();
 
-	    HAL_Delay(10);
+	    //HAL_Delay(10);
   }
   /* USER CODE END 3 */
 }
@@ -419,7 +464,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -459,7 +504,7 @@ static void MX_SPI2_Init(void)
   hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi2.Init.NSS = SPI_NSS_SOFT;
-  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -788,7 +833,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+//  if (htim->Instance == TIM6) {
+//	  lv_tick_inc(1);
+// }
+  if (htim->Instance == TIM6) {
+   	  timer_key++;
+   	  if(timer_key >= 40) {
+   		  timer_key = 0;
+   		  Key_Read();
+   	  }
+  }
   /* USER CODE END Callback 1 */
 }
 

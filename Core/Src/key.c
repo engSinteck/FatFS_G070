@@ -6,7 +6,6 @@
  *
  */
 #include "key.h"
-#include "log.h"
 #include "misc.h"
 #include "lvgl/lvgl.h"
 
@@ -466,7 +465,7 @@ void ButtonEvent(void)
 	uint8_t event[EVT_QWIDTH];
 	// check event queue
 	if(Evt_DeQueue(event)) {
-		timer_gui = HAL_GetTick();
+		//timer_gui = HAL_GetTick();
 	}
 }
 
@@ -474,7 +473,7 @@ void ButtonEvent(void)
 void KeyboardEvent(void)
 {
 	uint8_t event[EVT_QWIDTH];
-	const char* teclas[] = {"KEY-DOWN", "KEY-UP", "KEY-ENTER", "KEY-ESC", "KEY-ROTARY", "KEY-USER"};
+	//const char* teclas[] = {"KEY-DOWN", "KEY-UP", "KEY-ENTER", "KEY-ESC", "KEY-ROTARY", "KEY-USER"};
 
 	// check event queue
 	if(Evt_DeQueue(event)) {
@@ -499,7 +498,7 @@ void KeyboardEvent(void)
 					else if(event[1] == KEY_ENCODER) {
 
 					}
-					logI("\r\nButton %s: single click.", teclas[event[1]]);
+					//logI("\r\nButton %s: single click.", teclas[event[1]]);
 				}
 				else if(event[2] == PBTN_LCLK) {
 					if(event[1] == KEY_DN) {
@@ -518,22 +517,22 @@ void KeyboardEvent(void)
 
 					}
 
-					logI("\r\nButton %s: long click.", teclas[event[1]]);
+					//logI("\r\nButton %s: long click.", teclas[event[1]]);
 				}
 				else if(event[2] == PBTN_DCLK) {
 
-					logI("\r\nButton %s: double click.", teclas[event[1]]);
+					//logI("\r\nButton %s: double click.", teclas[event[1]]);
 				}
 				else if(event[2] == PBTN_TCLK) {
-					logI("\r\nButton %s: triple click.", teclas[event[1]]);
+					//logI("\r\nButton %s: triple click.", teclas[event[1]]);
 					//PushButton_SetMode(PUSHBTN_MODE_UDOWN, true);
 					//logI("\r\n --> Switch to up-down mode.");
 				}
 				else if(event[2] == PBTN_DOWN) {
-					logI("\r\nButton %s: is being pressed.", teclas[event[1]]);
+					//logI("\r\nButton %s: is being pressed.", teclas[event[1]]);
 				}
 				else if(event[2] == PBTN_ENDN) {
-					logI("\r\nButton %s: has been released.", teclas[event[1]]);
+					//logI("\r\nButton %s: has been released.", teclas[event[1]]);
 					//PushButton_SetMode(PUSHBTN_MODE_CLICK, true);
 					//logI("\r\n --> Switch to click mode.");
 				}

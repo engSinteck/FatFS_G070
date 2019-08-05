@@ -10,7 +10,6 @@
 #include <stdio.h>
 #endif
 #include "w25qxx.h"
-#include "log.h"
 
 #define W25QXX_DUMMY_BYTE         0xA5
 
@@ -152,12 +151,12 @@ bool	W25qxx_Init(void)
 	uint32_t	id;
 	#if (_W25QXX_DEBUG==1)
 
-	logI("w25qxx Init Begin...\r\n");
+	//logI("w25qxx Init Begin...\r\n");
 	#endif
 	id=W25qxx_ReadID();
 
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx ID:0x%X\r\n",id);
+	//logI("w25qxx ID:0x%X\r\n",id);
 	#endif
 	switch(id&0x0000FFFF)
 	{
@@ -165,75 +164,75 @@ bool	W25qxx_Init(void)
 			w25qxx.ID=W25Q512;
 			w25qxx.BlockCount=1024;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q512\r\n");
+			//logI("w25qxx Chip: w25q512\r\n");
 			#endif
 		break;
 		case 0x4019:	// 	w25q256
 			w25qxx.ID=W25Q256;
 			w25qxx.BlockCount=512;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q256\r\n");
+			//logI("w25qxx Chip: w25q256\r\n");
 			#endif
 		break;
 		case 0x4018:	// 	w25q128
 			w25qxx.ID=W25Q128;
 			w25qxx.BlockCount=256;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q128\r\n");
+			//logI("w25qxx Chip: w25q128\r\n");
 			#endif
 		break;
 		case 0x4017:	//	w25q64
 			w25qxx.ID=W25Q64;
 			w25qxx.BlockCount=128;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q64\r\n");
+			//logI("w25qxx Chip: w25q64\r\n");
 			#endif
 		break;
 		case 0x4016:	//	w25q32
 			w25qxx.ID=W25Q32;
 			w25qxx.BlockCount=64;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q32\r\n");
+			//logI("w25qxx Chip: w25q32\r\n");
 			#endif
 		break;
 		case 0x4015:	//	w25q16
 			w25qxx.ID=W25Q16;
 			w25qxx.BlockCount=32;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q16\r\n");
+			//logI("w25qxx Chip: w25q16\r\n");
 			#endif
 		break;
 		case 0x4014:	//	w25q80
 			w25qxx.ID=W25Q80;
 			w25qxx.BlockCount=16;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q80\r\n");
+			//logI("w25qxx Chip: w25q80\r\n");
 			#endif
 		break;
 		case 0x4013:	//	w25q40
 			w25qxx.ID=W25Q40;
 			w25qxx.BlockCount=8;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q40\r\n");
+			//logI("w25qxx Chip: w25q40\r\n");
 			#endif
 		break;
 		case 0x4012:	//	w25q20
 			w25qxx.ID=W25Q20;
 			w25qxx.BlockCount=4;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q20\r\n");
+			//logI("w25qxx Chip: w25q20\r\n");
 			#endif
 		break;
 		case 0x4011:	//	w25q10
 			w25qxx.ID=W25Q10;
 			w25qxx.BlockCount=2;
 			#if (_W25QXX_DEBUG==1)
-			logI("w25qxx Chip: w25q10\r\n");
+			//logI("w25qxx Chip: w25q10\r\n");
 			#endif
 		break;
 		default:
 				#if (_W25QXX_DEBUG==1)
-				logI("w25qxx Unknown ID\r\n");
+				//logI("w25qxx Unknown ID\r\n");
 				#endif
 			w25qxx.Lock=0;
 			return false;
@@ -250,14 +249,14 @@ bool	W25qxx_Init(void)
 	W25qxx_ReadStatusRegister(2);
 	W25qxx_ReadStatusRegister(3);
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx Page Size: %d Bytes\r\n",w25qxx.PageSize);
-	logI("w25qxx Page Count: %d\r\n",w25qxx.PageCount);
-	logI("w25qxx Sector Size: %d Bytes\r\n",w25qxx.SectorSize);
-	logI("w25qxx Sector Count: %d\r\n",w25qxx.SectorCount);
-	logI("w25qxx Block Size: %d Bytes\r\n",w25qxx.BlockSize);
-	logI("w25qxx Block Count: %d\r\n",w25qxx.BlockCount);
-	logI("w25qxx Capacity: %d KiloBytes\r\n",w25qxx.CapacityInKiloByte);
-	logI("w25qxx Init Done\r\n");
+	//logI("w25qxx Page Size: %d Bytes\r\n",w25qxx.PageSize);
+	//logI("w25qxx Page Count: %d\r\n",w25qxx.PageCount);
+	//logI("w25qxx Sector Size: %d Bytes\r\n",w25qxx.SectorSize);
+	//logI("w25qxx Sector Count: %d\r\n",w25qxx.SectorCount);
+	//logI("w25qxx Block Size: %d Bytes\r\n",w25qxx.BlockSize);
+	//logI("w25qxx Block Count: %d\r\n",w25qxx.BlockCount);
+	//logI("w25qxx Capacity: %d KiloBytes\r\n",w25qxx.CapacityInKiloByte);
+	//logI("w25qxx Init Done\r\n");
 	#endif
 	w25qxx.Lock=0;
 	return true;
@@ -270,8 +269,8 @@ void	W25qxx_EraseChip(void)
 		W25qxx_Delay(1);
 	w25qxx.Lock=1;
 	#if (_W25QXX_DEBUG==1)
-	uint32_t	StartTime=HAL_GetTick();
-	logI("w25qxx EraseChip Begin...\r\n");
+	//uint32_t	StartTime=HAL_GetTick();
+	//logI("w25qxx EraseChip Begin...\r\n");
 	#endif
 	W25qxx_WriteEnable();
 	HAL_GPIO_WritePin(_W25QXX_CS_GPIO,_W25QXX_CS_PIN,GPIO_PIN_RESET);
@@ -279,7 +278,7 @@ void	W25qxx_EraseChip(void)
   HAL_GPIO_WritePin(_W25QXX_CS_GPIO,_W25QXX_CS_PIN,GPIO_PIN_SET);
 	W25qxx_WaitForWriteEnd();
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx EraseBlock done after %d ms!\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx EraseBlock done after %d ms!\r\n",HAL_GetTick()-StartTime);
 	#endif
 	W25qxx_Delay(10);
 	w25qxx.Lock=0;
@@ -294,8 +293,8 @@ void W25qxx_EraseSector(uint32_t SectorAddr)
 	w25qxx.Lock=1;
 
 	#if (_W25QXX_DEBUG==1)
-	uint32_t	StartTime=HAL_GetTick();
-	logI("w25qxx EraseSector %d Begin...\r\n",SectorAddr);
+	//uint32_t	StartTime=HAL_GetTick();
+	//logI("w25qxx EraseSector %d Begin...\r\n",SectorAddr);
 	#endif
 
 	W25qxx_WaitForWriteEnd();
@@ -313,7 +312,7 @@ void W25qxx_EraseSector(uint32_t SectorAddr)
 	W25qxx_WaitForWriteEnd();
 
 	#if (_W25QXX_DEBUG==1)
-  	logI("w25qxx EraseSector done after %d ms\r\n",HAL_GetTick()-StartTime);
+  	//logI("w25qxx EraseSector done after %d ms\r\n",HAL_GetTick()-StartTime);
 	#endif
 
   	W25qxx_Delay(1);
@@ -329,9 +328,9 @@ void W25qxx_EraseBlock(uint32_t BlockAddr)
 	w25qxx.Lock=1;
 
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx EraseBlock %d Begin...\r\n",BlockAddr);
+	//logI("w25qxx EraseBlock %d Begin...\r\n",BlockAddr);
 	W25qxx_Delay(100);
-	uint32_t	StartTime=HAL_GetTick();
+	//uint32_t	StartTime=HAL_GetTick();
 	#endif
 
 	W25qxx_WaitForWriteEnd();
@@ -350,7 +349,7 @@ void W25qxx_EraseBlock(uint32_t BlockAddr)
 	W25qxx_WaitForWriteEnd();
 
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx EraseBlock done after %d ms\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx EraseBlock done after %d ms\r\n",HAL_GetTick()-StartTime);
 	W25qxx_Delay(100);
 	#endif
 
@@ -398,9 +397,9 @@ bool 	W25qxx_IsEmptyPage(uint32_t Page_Address,uint32_t OffsetInByte,uint32_t Nu
 	if(((NumByteToCheck_up_to_PageSize+OffsetInByte)>w25qxx.PageSize)||(NumByteToCheck_up_to_PageSize==0))
 		NumByteToCheck_up_to_PageSize=w25qxx.PageSize-OffsetInByte;
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckPage:%d, Offset:%d, Bytes:%d begin...\r\n",Page_Address,OffsetInByte,NumByteToCheck_up_to_PageSize);
+	//logI("w25qxx CheckPage:%d, Offset:%d, Bytes:%d begin...\r\n",Page_Address,OffsetInByte,NumByteToCheck_up_to_PageSize);
 	W25qxx_Delay(100);
-	uint32_t	StartTime=HAL_GetTick();
+	//uint32_t	StartTime=HAL_GetTick();
 	#endif
 
 	uint8_t	pBuffer[32];
@@ -445,14 +444,14 @@ bool 	W25qxx_IsEmptyPage(uint32_t Page_Address,uint32_t OffsetInByte,uint32_t Nu
 		}
 	}
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckPage is Empty in %d ms\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx CheckPage is Empty in %d ms\r\n",HAL_GetTick()-StartTime);
 	W25qxx_Delay(100);
 	#endif
 	w25qxx.Lock=0;
 	return true;
 	NOT_EMPTY:
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckPage is Not Empty in %d ms\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx CheckPage is Not Empty in %d ms\r\n",HAL_GetTick()-StartTime);
 	W25qxx_Delay(100);
 	#endif
 	w25qxx.Lock=0;
@@ -468,9 +467,9 @@ bool 	W25qxx_IsEmptySector(uint32_t Sector_Address,uint32_t OffsetInByte,uint32_
 	if((NumByteToCheck_up_to_SectorSize>w25qxx.SectorSize)||(NumByteToCheck_up_to_SectorSize==0))
 		NumByteToCheck_up_to_SectorSize=w25qxx.SectorSize;
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckSector:%d, Offset:%d, Bytes:%d begin...\r\n",Sector_Address,OffsetInByte,NumByteToCheck_up_to_SectorSize);
+	//logI("w25qxx CheckSector:%d, Offset:%d, Bytes:%d begin...\r\n",Sector_Address,OffsetInByte,NumByteToCheck_up_to_SectorSize);
 	W25qxx_Delay(100);
-	uint32_t	StartTime=HAL_GetTick();
+	//uint32_t	StartTime=HAL_GetTick();
 	#endif
 	uint8_t	pBuffer[32];
 	uint32_t	WorkAddress;
@@ -515,14 +514,14 @@ bool 	W25qxx_IsEmptySector(uint32_t Sector_Address,uint32_t OffsetInByte,uint32_
 		}
 	}
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckSector is Empty in %d ms\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx CheckSector is Empty in %d ms\r\n",HAL_GetTick()-StartTime);
 	W25qxx_Delay(100);
 	#endif
 	w25qxx.Lock=0;
 	return true;
 	NOT_EMPTY:
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckSector is Not Empty in %d ms\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx CheckSector is Not Empty in %d ms\r\n",HAL_GetTick()-StartTime);
 	W25qxx_Delay(100);
 	#endif
 	w25qxx.Lock=0;
@@ -538,9 +537,9 @@ bool 	W25qxx_IsEmptyBlock(uint32_t Block_Address,uint32_t OffsetInByte,uint32_t 
 	if((NumByteToCheck_up_to_BlockSize>w25qxx.BlockSize)||(NumByteToCheck_up_to_BlockSize==0))
 		NumByteToCheck_up_to_BlockSize=w25qxx.BlockSize;
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckBlock:%d, Offset:%d, Bytes:%d begin...\r\n",Block_Address,OffsetInByte,NumByteToCheck_up_to_BlockSize);
+	//logI("w25qxx CheckBlock:%d, Offset:%d, Bytes:%d begin...\r\n",Block_Address,OffsetInByte,NumByteToCheck_up_to_BlockSize);
 	W25qxx_Delay(100);
-	uint32_t	StartTime=HAL_GetTick();
+	//uint32_t	StartTime=HAL_GetTick();
 	#endif
 	uint8_t	pBuffer[32];
 	uint32_t	WorkAddress;
@@ -585,14 +584,14 @@ bool 	W25qxx_IsEmptyBlock(uint32_t Block_Address,uint32_t OffsetInByte,uint32_t 
 		}
 	}
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckBlock is Empty in %d ms\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx CheckBlock is Empty in %d ms\r\n",HAL_GetTick()-StartTime);
 	W25qxx_Delay(100);
 	#endif
 	w25qxx.Lock=0;
 	return true;
 	NOT_EMPTY:
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx CheckBlock is Not Empty in %d ms\r\n",HAL_GetTick()-StartTime);
+	//logI("w25qxx CheckBlock is Not Empty in %d ms\r\n",HAL_GetTick()-StartTime);
 	W25qxx_Delay(100);
 	#endif
 	w25qxx.Lock=0;
@@ -606,8 +605,8 @@ void W25qxx_WriteByte(uint8_t pBuffer, uint32_t WriteAddr_inBytes)
 		W25qxx_Delay(1);
 	w25qxx.Lock=1;
 	#if (_W25QXX_DEBUG==1)
-	uint32_t	StartTime=HAL_GetTick();
-	logI("w25qxx WriteByte 0x%02X at address %d begin...",pBuffer,WriteAddr_inBytes);
+	//uint32_t	StartTime=HAL_GetTick();
+	//logI("w25qxx WriteByte 0x%02X at address %d begin...",pBuffer,WriteAddr_inBytes);
 	#endif
 	W25qxx_WaitForWriteEnd();
   W25qxx_WriteEnable();
@@ -622,7 +621,7 @@ void W25qxx_WriteByte(uint8_t pBuffer, uint32_t WriteAddr_inBytes)
 	HAL_GPIO_WritePin(_W25QXX_CS_GPIO,_W25QXX_CS_PIN,GPIO_PIN_SET);
   W25qxx_WaitForWriteEnd();
 	#if (_W25QXX_DEBUG==1)
-    logI("w25qxx WriteByte done after %d ms\r\n",HAL_GetTick()-StartTime);
+    //logI("w25qxx WriteByte done after %d ms\r\n",HAL_GetTick()-StartTime);
 	#endif
 	w25qxx.Lock=0;
 }
@@ -638,7 +637,7 @@ void 	W25qxx_WritePage(uint8_t *pBuffer	,uint32_t Page_Address,uint32_t OffsetIn
 	if((OffsetInByte+NumByteToWrite_up_to_PageSize) > w25qxx.PageSize)
 		NumByteToWrite_up_to_PageSize = w25qxx.PageSize-OffsetInByte;
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx WritePage:%d, Offset:%d ,Writes %d Bytes, begin...\r\n",Page_Address,OffsetInByte,NumByteToWrite_up_to_PageSize);
+	//logI("w25qxx WritePage:%d, Offset:%d ,Writes %d Bytes, begin...\r\n",Page_Address,OffsetInByte,NumByteToWrite_up_to_PageSize);
 	W25qxx_Delay(100);
 	uint32_t	StartTime=HAL_GetTick();
 	#endif
@@ -661,13 +660,13 @@ void 	W25qxx_WritePage(uint8_t *pBuffer	,uint32_t Page_Address,uint32_t OffsetIn
 	{
 		if((i%8==0)&&(i>2))
 		{
-			logI("\r\n");
-			W25qxx_Delay(10);
+			//logI("\r\n");
+			//W25qxx_Delay(10);
 		}
-		logI("0x%02X,",pBuffer[i]);
+		//logI("0x%02X,",pBuffer[i]);
 	}
-	logI("\r\n");
-	logI("w25qxx WritePage done after %d ms\r\n",StartTime);
+	//logI("\r\n");
+	//logI("w25qxx WritePage done after %d ms\r\n",StartTime);
 	W25qxx_Delay(100);
 	#endif
 	W25qxx_Delay(1);
@@ -680,14 +679,14 @@ void 	W25qxx_WriteSector(uint8_t *pBuffer	,uint32_t Sector_Address,uint32_t Offs
 	if((NumByteToWrite_up_to_SectorSize>w25qxx.SectorSize)||(NumByteToWrite_up_to_SectorSize==0))
 		NumByteToWrite_up_to_SectorSize=w25qxx.SectorSize;
 	#if (_W25QXX_DEBUG==1)
-	logI("+++w25qxx WriteSector:%d, Offset:%d ,Write %d Bytes, begin...\r\n",Sector_Address,OffsetInByte,NumByteToWrite_up_to_SectorSize);
+	//logI("+++w25qxx WriteSector:%d, Offset:%d ,Write %d Bytes, begin...\r\n",Sector_Address,OffsetInByte,NumByteToWrite_up_to_SectorSize);
 	W25qxx_Delay(100);
 	#endif
 	if(OffsetInByte>=w25qxx.SectorSize)
 	{
 		#if (_W25QXX_DEBUG==1)
-		logI("---w25qxx WriteSector Faild!\r\n");
-		W25qxx_Delay(100);
+		//logI("---w25qxx WriteSector Faild!\r\n");
+		//W25qxx_Delay(100);
 		#endif
 		return;
 	}
@@ -709,7 +708,7 @@ void 	W25qxx_WriteSector(uint8_t *pBuffer	,uint32_t Sector_Address,uint32_t Offs
 		LocalOffset=0;
 	}while(BytesToWrite>0);
 	#if (_W25QXX_DEBUG==1)
-	logI("---w25qxx WriteSector Done\r\n");
+	//logI("---w25qxx WriteSector Done\r\n");
 	W25qxx_Delay(100);
 	#endif
 }
@@ -720,13 +719,13 @@ void 	W25qxx_WriteBlock	(uint8_t* pBuffer ,uint32_t Block_Address	,uint32_t Offs
 	if((NumByteToWrite_up_to_BlockSize>w25qxx.BlockSize)||(NumByteToWrite_up_to_BlockSize==0))
 		NumByteToWrite_up_to_BlockSize=w25qxx.BlockSize;
 	#if (_W25QXX_DEBUG==1)
-	logI("+++w25qxx WriteBlock:%d, Offset:%d ,Write %d Bytes, begin...\r\n",Block_Address,OffsetInByte,NumByteToWrite_up_to_BlockSize);
+	//logI("+++w25qxx WriteBlock:%d, Offset:%d ,Write %d Bytes, begin...\r\n",Block_Address,OffsetInByte,NumByteToWrite_up_to_BlockSize);
 	W25qxx_Delay(100);
 	#endif
 	if(OffsetInByte>=w25qxx.BlockSize)
 	{
 		#if (_W25QXX_DEBUG==1)
-		logI("---w25qxx WriteBlock Faild!\r\n");
+		//logI("---w25qxx WriteBlock Faild!\r\n");
 		W25qxx_Delay(100);
 		#endif
 		return;
@@ -749,7 +748,7 @@ void 	W25qxx_WriteBlock	(uint8_t* pBuffer ,uint32_t Block_Address	,uint32_t Offs
 		LocalOffset=0;
 	}while(BytesToWrite>0);
 	#if (_W25QXX_DEBUG==1)
-	logI("---w25qxx WriteBlock Done\r\n");
+	//logI("---w25qxx WriteBlock Done\r\n");
 	W25qxx_Delay(100);
 	#endif
 }
@@ -761,8 +760,8 @@ void 	W25qxx_ReadByte(uint8_t *pBuffer,uint32_t Bytes_Address)
 		W25qxx_Delay(1);
 	w25qxx.Lock=1;
 	#if (_W25QXX_DEBUG==1)
-	uint32_t	StartTime=HAL_GetTick();
-	logI("w25qxx ReadByte at address %d begin...\r\n",Bytes_Address);
+	//uint32_t	StartTime=HAL_GetTick();
+	//logI("w25qxx ReadByte at address %d begin...\r\n",Bytes_Address);
 	#endif
 	HAL_GPIO_WritePin(_W25QXX_CS_GPIO,_W25QXX_CS_PIN,GPIO_PIN_RESET);
   W25qxx_Spi(0x0B);
@@ -775,7 +774,7 @@ void 	W25qxx_ReadByte(uint8_t *pBuffer,uint32_t Bytes_Address)
 	*pBuffer = W25qxx_Spi(W25QXX_DUMMY_BYTE);
 	HAL_GPIO_WritePin(_W25QXX_CS_GPIO,_W25QXX_CS_PIN,GPIO_PIN_SET);
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx ReadByte 0x%02X done after %d ms\r\n",*pBuffer,HAL_GetTick()-StartTime);
+	//logI("w25qxx ReadByte 0x%02X done after %d ms\r\n",*pBuffer,HAL_GetTick()-StartTime);
 	#endif
 	w25qxx.Lock=0;
 }
@@ -788,7 +787,7 @@ void W25qxx_ReadBytes(uint8_t* pBuffer, uint32_t ReadAddr, uint32_t NumByteToRea
 	w25qxx.Lock=1;
 	#if (_W25QXX_DEBUG==1)
 	uint32_t	StartTime=HAL_GetTick();
-	logI("w25qxx ReadBytes at Address:%d, %d Bytes  begin...\r\n",ReadAddr,NumByteToRead);
+	//logI("w25qxx ReadBytes at Address:%d, %d Bytes  begin...\r\n",ReadAddr,NumByteToRead);
 	#endif
 	HAL_GPIO_WritePin(_W25QXX_CS_GPIO,_W25QXX_CS_PIN,GPIO_PIN_RESET);
 	W25qxx_Spi(0x0B);
@@ -806,13 +805,13 @@ void W25qxx_ReadBytes(uint8_t* pBuffer, uint32_t ReadAddr, uint32_t NumByteToRea
 	{
 		if((i%8==0)&&(i>2))
 		{
-			logI("\r\n");
+			//logI("\r\n");
 			W25qxx_Delay(10);
 		}
-		logI("0x%02X,",pBuffer[i]);
+		//logI("0x%02X,",pBuffer[i]);
 	}
-	logI("\r\n");
-	logI("w25qxx ReadBytes done after %d ms\r\n",StartTime);
+	//logI("\r\n");
+	//logI("w25qxx ReadBytes done after %d ms\r\n",StartTime);
 	W25qxx_Delay(100);
 	#endif
 	W25qxx_Delay(1);
@@ -830,7 +829,7 @@ void 	W25qxx_ReadPage(uint8_t *pBuffer,uint32_t Page_Address,uint32_t OffsetInBy
 	if((OffsetInByte+NumByteToRead_up_to_PageSize) > w25qxx.PageSize)
 		NumByteToRead_up_to_PageSize = w25qxx.PageSize-OffsetInByte;
 	#if (_W25QXX_DEBUG==1)
-	logI("w25qxx ReadPage:%d, Offset:%d ,Read %d Bytes, begin...\r\n",Page_Address,OffsetInByte,NumByteToRead_up_to_PageSize);
+	//logI("w25qxx ReadPage:%d, Offset:%d ,Read %d Bytes, begin...\r\n",Page_Address,OffsetInByte,NumByteToRead_up_to_PageSize);
 	W25qxx_Delay(100);
 	uint32_t	StartTime=HAL_GetTick();
 	#endif
@@ -851,13 +850,13 @@ void 	W25qxx_ReadPage(uint8_t *pBuffer,uint32_t Page_Address,uint32_t OffsetInBy
 	{
 		if((i%8==0)&&(i>2))
 		{
-			logI("\r\n");
+			//logI("\r\n");
 			W25qxx_Delay(10);
 		}
-		logI("0x%02X,",pBuffer[i]);
+		//logI("0x%02X,",pBuffer[i]);
 	}
-	logI("\r\n");
-	logI("w25qxx ReadPage done after %d ms\r\n",StartTime);
+	//logI("\r\n");
+	//logI("w25qxx ReadPage done after %d ms\r\n",StartTime);
 	W25qxx_Delay(100);
 	#endif
 	W25qxx_Delay(1);
@@ -870,13 +869,13 @@ void 	W25qxx_ReadSector(uint8_t *pBuffer,uint32_t Sector_Address,uint32_t Offset
 	if((NumByteToRead_up_to_SectorSize>w25qxx.SectorSize)||(NumByteToRead_up_to_SectorSize==0))
 		NumByteToRead_up_to_SectorSize=w25qxx.SectorSize;
 	#if (_W25QXX_DEBUG==1)
-	logI("+++w25qxx ReadSector:%d, Offset:%d ,Read %d Bytes, begin...\r\n",Sector_Address,OffsetInByte,NumByteToRead_up_to_SectorSize);
+	//logI("+++w25qxx ReadSector:%d, Offset:%d ,Read %d Bytes, begin...\r\n",Sector_Address,OffsetInByte,NumByteToRead_up_to_SectorSize);
 	W25qxx_Delay(100);
 	#endif
 	if(OffsetInByte>=w25qxx.SectorSize)
 	{
 		#if (_W25QXX_DEBUG==1)
-		logI("---w25qxx ReadSector Faild!\r\n");
+		//logI("---w25qxx ReadSector Faild!\r\n");
 		W25qxx_Delay(100);
 		#endif
 		return;
@@ -899,7 +898,7 @@ void 	W25qxx_ReadSector(uint8_t *pBuffer,uint32_t Sector_Address,uint32_t Offset
 		LocalOffset=0;
 	}while(BytesToRead>0);
 	#if (_W25QXX_DEBUG==1)
-	logI("---w25qxx ReadSector Done\r\n");
+	//logI("---w25qxx ReadSector Done\r\n");
 	W25qxx_Delay(100);
 	#endif
 }
@@ -910,13 +909,13 @@ void 	W25qxx_ReadBlock(uint8_t* pBuffer,uint32_t Block_Address,uint32_t OffsetIn
 	if((NumByteToRead_up_to_BlockSize>w25qxx.BlockSize)||(NumByteToRead_up_to_BlockSize==0))
 		NumByteToRead_up_to_BlockSize=w25qxx.BlockSize;
 	#if (_W25QXX_DEBUG==1)
-	logI("+++w25qxx ReadBlock:%d, Offset:%d ,Read %d Bytes, begin...\r\n",Block_Address,OffsetInByte,NumByteToRead_up_to_BlockSize);
+	//logI("+++w25qxx ReadBlock:%d, Offset:%d ,Read %d Bytes, begin...\r\n",Block_Address,OffsetInByte,NumByteToRead_up_to_BlockSize);
 	W25qxx_Delay(100);
 	#endif
 	if(OffsetInByte>=w25qxx.BlockSize)
 	{
 		#if (_W25QXX_DEBUG==1)
-		logI("w25qxx ReadBlock Faild!\r\n");
+		//logI("w25qxx ReadBlock Faild!\r\n");
 		W25qxx_Delay(100);
 		#endif
 		return;
@@ -939,7 +938,7 @@ void 	W25qxx_ReadBlock(uint8_t* pBuffer,uint32_t Block_Address,uint32_t OffsetIn
 		LocalOffset=0;
 	}while(BytesToRead>0);
 	#if (_W25QXX_DEBUG==1)
-	logI("---w25qxx ReadBlock Done\r\n");
+	//logI("---w25qxx ReadBlock Done\r\n");
 	W25qxx_Delay(100);
 	#endif
 }

@@ -9,7 +9,6 @@
 
 #include "misc.h"
 #include "main.h"
-#include "log.h"
 #include "ST7735.h"
 #include "stdio.h"
 #include "string.h"
@@ -182,8 +181,7 @@ void tft_backlight(uint16_t value)
 	if(value >= 0 && value <= 100) {
 		tft_pwm = value * 40;
 		__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, tft_pwm);		// PWM_CH1 = TFT
-		//__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, tft_pwm);		// PWM_CH2 = TFT
-		logI("I - TFT_PWM: %ld\n\r", tft_pwm);
+		__HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, tft_pwm);		// PWM_CH2 = TFT
 	}
 }
 

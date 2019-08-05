@@ -9,9 +9,7 @@
 #include "string.h" // For memcpy
 #include "stdio.h"
 #include "ST7735.h"
-#include "font5x7.h"
 #include "lvgl/lvgl.h"
-#include "log.h"
 
 extern char buffer[];
 
@@ -421,7 +419,7 @@ void ST7735_FillRect(uint16_t X1, uint16_t Y1, uint16_t X2, uint16_t Y2, uint16_
 	}
 	CS_H();
 }
-
+/*
 void ST7735_PutChar5x7(uint16_t X, uint16_t Y, uint8_t chr, uint16_t color) {
 	uint16_t i,j;
 	uint8_t buffer[5];
@@ -446,7 +444,7 @@ void ST7735_PutChar5x7(uint16_t X, uint16_t Y, uint8_t chr, uint16_t color) {
     }
 	CS_H();
 }
-
+*/
 void ST7735_PutStr5x7(uint8_t X, uint8_t Y, char *str, uint16_t color) {
     while (*str) {
         ST7735_PutChar5x7(X,Y,*str++,color);
@@ -456,12 +454,12 @@ void ST7735_PutStr5x7(uint8_t X, uint8_t Y, char *str, uint16_t color) {
 
 void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
 {
-    logI("debug HAL_SPI_TxCpltCallback\n");
+    //logI("debug HAL_SPI_TxCpltCallback\n");
 	lv_disp_flush_ready(disp_p);
 }
 
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
 {
-	logI("debug SPI ERROR\n");
+	//logI("debug SPI ERROR\n");
 }
 
