@@ -24,8 +24,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "lvgl/lvgl.h"
+#include "ST7735.h"
 #include "stdio.h"
 #include "string.h"
+//
+#include "misc.h"
+#include "key.h"
+#include "w25qxx.h"
+#include "log.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -62,6 +69,7 @@ UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
 int32_t ProcessStatus = 0;
 char buffer[100] = {0};
+uint16_t tft_pwm;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -128,6 +136,22 @@ int main(void)
     Error_Handler();
   }
   /* USER CODE BEGIN 2 */
+  // Inicia PWM
+   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+   __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_1, 4095);			// PWM_CH1 = 4095 100% brilho
+   __HAL_TIM_SetCompare(&htim3, TIM_CHANNEL_2, 4095);		    // PWM_CH2 = 4095
+
+  ST7735_Init();
+  ST7735_Clear(0x0000);
+  tft_backlight(100);
+
+  // Inicia Fila de Eventos do Teclado
+  Evt_InitQueue();
+
+  // Inicia Tecla
+  KeyboardInit(0x01);
+
   sprintf(buffer, "STM32G070 FatFs - INIC OK\n\r");
   HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
   /* USER CODE END 2 */

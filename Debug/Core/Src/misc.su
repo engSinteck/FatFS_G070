@@ -1,0 +1,5 @@
+misc.c:26:10:Read_Encoder	32	static
+misc.c:54:6:my_print	0	static
+misc.c:81:6:MicroDelay	24	static
+misc.c:95:6:buzzer	16	static
+misc.c:180:6:tft_backlight	8	static

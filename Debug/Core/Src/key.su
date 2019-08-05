@@ -1,0 +1,14 @@
+key.c:47:6:ClearLog	0	static
+key.c:26:6:KeyboardInit	24	static
+key.c:55:6:KeyboardSetMode	24	static
+key.c:76:6:Enter_ClearLog	0	static
+key.c:84:6:Enter_SetMode	16	static
+key.c:335:9:PushButton_Read	8	static
+key.c:103:6:KeyEnter_Routine	16	static
+key.c:390:6:Evt_EnQueue	12	static
+key.c:204:6:KeyboardRead	40	static
+key.c:361:6:Key_Read	8	static
+key.c:425:6:Evt_DeQueue	12	static
+key.c:458:6:Evt_InitQueue	0	static
+key.c:464:6:ButtonEvent	24	static
+key.c:474:6:KeyboardEvent	56	static
