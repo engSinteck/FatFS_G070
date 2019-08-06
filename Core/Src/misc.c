@@ -25,25 +25,25 @@ uint32_t encoderPosCount = 0;
 uint16_t Read_Encoder(void)
 {
 	/* BEGIN � Code for encoder */
-	aVal = HAL_GPIO_ReadPin(ENC_B_GPIO_Port, ENC_B_Pin);
+	aVal = HAL_GPIO_ReadPin(ENC_D_GPIO_Port, ENC_D_Pin);
 	if (aVal != CLKLast)
 	{ // Means the knob is rotating
 	  // if the knob is rotating, we need to determine direction
 	  // We do that by reading pin B.
 //		if(!aVal)
 //		{ // aVal is false or 0 then proceed. This prevents double incrementation.
-			if (HAL_GPIO_ReadPin(ENC_A_GPIO_Port, ENC_A_Pin) != aVal)
+			if (HAL_GPIO_ReadPin(ENC_C_GPIO_Port, ENC_C_Pin) != aVal)
 			{ // Means pin A Changed first � We�re Rotating Clockwise
 				encoderPosCount++;
-				if(encoderPosCount >= 100) encoderPosCount = 100;
+				if(encoderPosCount >= 9) encoderPosCount = 9;
 				bCW = true;
 			}
 			else {// Otherwise B changed first and we�re moving CCW
 				if(encoderPosCount >= 1) encoderPosCount--;
 				bCW = false;
 			}
-			sprintf(buffer, "Encoder - aVal: %d DT: %d, EncoderPosition: %ld\n", aVal, HAL_GPIO_ReadPin(ENC_A_GPIO_Port, ENC_A_Pin), encoderPosCount);
-			HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
+			//sprintf(buffer, "Encoder - aVal: %d DT: %d, EncoderPosition: %ld\n", aVal, HAL_GPIO_ReadPin(ENC_C_GPIO_Port, ENC_C_Pin), encoderPosCount);
+			//HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
 //		}
 	}
 	CLKLast = aVal;

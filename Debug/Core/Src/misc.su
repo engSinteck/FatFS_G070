@@ -1,4 +1,4 @@
-misc.c:25:10:Read_Encoder	32	static
+misc.c:25:10:Read_Encoder	16	static
 misc.c:53:6:my_print	0	static
 misc.c:80:6:MicroDelay	24	static
 misc.c:94:6:buzzer	16	static

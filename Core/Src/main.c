@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "lvgl/lvgl.h"
+#include "lv_fs_if.h"
 #include "ST7735.h"
 #include "stdio.h"
 #include "string.h"
@@ -54,8 +55,9 @@ extern FATFS SDFatFs;    /* File system object for SD logical drive */
 extern FIL SDFile;       /* File  object for SD */
 extern char SDPath[];   /* SD logical drive path */
 
-
-
+static lv_obj_t * Tela_Principal;
+static lv_obj_t * img_fundo;
+static lv_style_t style_fundo;
 
 /* USER CODE END PD */
 
@@ -190,14 +192,16 @@ int main(void)
     if (ProcessStatus == APP_ERROR)
     {
       //Error_Handler();
-      sprintf(buffer, "STM32G070 FatFs ProcessStatus Error...\n\r");
-      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      //sprintf(buffer, "STM32G070 FatFs ProcessStatus Error...\n\r");
+      //HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
     }
     else if (ProcessStatus == APP_OK)
 	{
       //Success_Handler();
-      sprintf(buffer, "STM32G070 FatFs - ProcessStatus OK...\n\r");
-      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      //sprintf(buffer, "STM32G070 FatFs - ProcessStatus OK...\n\r");
+      //HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+
+/*
       if(f_mount(&SDFatFs, "", 0) != FR_OK) {
     	  sprintf(buffer, "STM32G070 FatFs - Mount Drive ERROR...\n\r");
     	  HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
@@ -206,7 +210,7 @@ int main(void)
     	  sprintf(buffer, "STM32G070 FatFs - Mount Drive...\n\r");
     	  HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
       }
-      /* Open file to write */
+      // Open file to write
       	if(f_open(&SDFile, "first.txt", FA_OPEN_ALWAYS | FA_READ | FA_WRITE) != FR_OK) {
       		sprintf(buffer, "STM32G070 FatFs - File Open Write ERROR...\n\r");
       		HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
@@ -214,13 +218,13 @@ int main(void)
       	else {
       		sprintf(buffer, "STM32G070 FatFs - File Open Write...\n\r");
       		HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
-          	/* Writing text */
+          	// Writing text
           	f_puts("STM32 SD Card I/O Example via SPI\n", &SDFile);
           	f_puts("Save the world!!!", &SDFile);
           	f_close(&SDFile);
       	}
 
-      	/* Check freeSpace space */
+      	// Check freeSpace space
       	if(f_getfree("", &fre_clust, &pfs) != FR_OK){
 
       	}
@@ -231,7 +235,7 @@ int main(void)
       	sprintf(buffer, "STM32G070 FatFs - Total Space = %ld Free Space = %ld\n\r",totalSpace , freeSpace);
       	HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
 
-      /* Open a text file */
+      // Open a text file
       if(f_open(&SDFile, "message.txt", FA_READ) != FR_OK) {
           sprintf(buffer, "STM32G070 FatFs - Open File Error...\n\r");
           HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
@@ -244,9 +248,18 @@ int main(void)
               //printf(line);
               sprintf(buffer, "STM32G070 FatFs - Read File... line: %s\n\r", line);
               HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
-              /* Close the file */
+              // Close the file
               f_close(&SDFile);
           }
+      }
+      // Test Open Tela_0.bin
+      if(f_open(&SDFile, "tela_0.bin", FA_READ) != FR_OK) {
+    	  sprintf(buffer, "STM32G070 FatFs - Open Tela_0.bin Error...\n\r");
+          HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      }
+      else {
+          sprintf(buffer, "STM32G070 FatFs - Open File Tela_0.bin...\n\r");
+          HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
       }
 
       if(f_mount(NULL, "", 1) != FR_OK) {
@@ -257,25 +270,26 @@ int main(void)
           sprintf(buffer, "STM32G070 FatFs - Umount Drive...\n\r");
           HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
       }
+*/
     }
+
+  lv_fs_if_fatfs_init();
 
   sprintf(buffer, "STM32G070 FatFs - INIC OK\n\r");
   HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
 
+  // Create a Screen
+  Tela_Principal = lv_obj_create(NULL, NULL);
+  lv_style_copy(&style_fundo, &lv_style_plain_color);
+  style_fundo.body.main_color = LV_COLOR_BLACK;
+  style_fundo.body.grad_color = LV_COLOR_BLACK;
+  lv_obj_set_style(Tela_Principal, &style_fundo); 					// Configura o estilo criado
 
-  //
-  lv_obj_t * scr = lv_disp_get_scr_act(NULL);     /*Get the current screen*/
+  img_fundo = lv_img_create(Tela_Principal, NULL);
+  lv_img_set_src(img_fundo, "F:tela_0.bin");
+  lv_obj_set_protect(img_fundo, LV_PROTECT_POS);
 
-  /*Create a Label on the currently active screen*/
-  lv_obj_t * label1 =  lv_label_create(scr, NULL);
-
-  /*Modify the Label's text*/
-  lv_label_set_text(label1, "STM32G070RB");
-
-  /* Align the Label to the center
-   * NULL means align on parent (which is the screen now)
-   * 0, 0 at the end means an x, y offset after alignment*/
-  lv_obj_align(label1, NULL, LV_ALIGN_CENTER, 0, 0);
+  lv_scr_load(Tela_Principal);
 
   /* USER CODE END 2 */
 
@@ -291,7 +305,7 @@ int main(void)
 		  ButtonEvent();
 
 		  // Read Rotary Encoder
-		  Read_Encoder();
+		  //Read_Encoder();
 
 	    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 	    // Eventos da GUI LittleVG

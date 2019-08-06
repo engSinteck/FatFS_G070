@@ -8,14 +8,18 @@
 #include "key.h"
 #include "misc.h"
 #include "lvgl/lvgl.h"
+#include "stdio.h"
+#include "string.h"
 
 extern TIM_HandleTypeDef htim17;
 extern TIM_HandleTypeDef htim3;
+extern UART_HandleTypeDef huart2;
 
 extern uint16_t tft_pwm, pwm_rf_value;
 extern long int frequencia;
 extern uint8_t audio_select, stereo_sel, processador_sel, emphase_sel, clipper_sel;
 extern uint32_t TelaAtiva, MenuSel, timer_gui;
+extern char buffer[];
 
 // Estrututa Botoes
 pushbtn_param btenter;
@@ -462,11 +466,7 @@ void Evt_InitQueue(void)
 
 void ButtonEvent(void)
 {
-	uint8_t event[EVT_QWIDTH];
-	// check event queue
-	if(Evt_DeQueue(event)) {
-		//timer_gui = HAL_GetTick();
-	}
+	KeyboardEvent();
 }
 
 // Eventos Teclado
@@ -498,7 +498,8 @@ void KeyboardEvent(void)
 					else if(event[1] == KEY_ENCODER) {
 
 					}
-					//logI("\r\nButton %s: single click.", teclas[event[1]]);
+					//sprintf(buffer, "\r\nButton %d: single click.", event[1]);
+					//HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
 				}
 				else if(event[2] == PBTN_LCLK) {
 					if(event[1] == KEY_DN) {

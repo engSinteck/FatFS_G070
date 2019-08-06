@@ -1,0 +1,15 @@
+lv_fs_fatfs.c:210:20:fs_size	0	static
+lv_fs_fatfs.c:224:20:fs_tell	0	static
+lv_fs_fatfs.c:236:20:fs_remove	0	static
+lv_fs_fatfs.c:283:20:fs_free	0	static
+lv_fs_fatfs.c:314:20:fs_dir_read	48	static
+lv_fs_fatfs.c:299:20:fs_dir_open	8	static
+lv_fs_fatfs.c:341:20:fs_dir_close	8	static
+lv_fs_fatfs.c:252:20:fs_trunc	8	static
+lv_fs_fatfs.c:266:20:fs_rename	8	static
+lv_fs_fatfs.c:197:20:fs_seek	8	static
+lv_fs_fatfs.c:182:20:fs_write	8	static
+lv_fs_fatfs.c:166:20:fs_read	8	static
+lv_fs_fatfs.c:150:20:fs_close	8	static
+lv_fs_fatfs.c:124:20:fs_open	16	static
+lv_fs_fatfs.c:67:6:lv_fs_if_fatfs_init	80	static
