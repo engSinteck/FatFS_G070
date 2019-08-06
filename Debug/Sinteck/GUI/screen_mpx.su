@@ -1,0 +1,14 @@
+screen_mpx.c:234:13:update_mpx_screen	0	static
+screen_mpx.c:184:13:btn_event_next_audio	8	static
+screen_mpx.c:241:13:btn_event_esc_audio	8	static
+screen_mpx.c:90:6:create_style_bar	24	static
+screen_mpx.c:124:6:create_vumeter_m	32	static
+screen_mpx.c:137:6:create_vumeter_r	32	static
+screen_mpx.c:150:6:create_vumeter_l	32	static
+screen_mpx.c:163:6:btn_next_audio	16	static
+screen_mpx.c:55:6:screen_reading_mpx	16	static
+screen_mpx.c:194:6:btn_esc_audio	16	static
+screen_mpx.c:216:10:map_mpx	8	static
+screen_mpx.c:221:6:bargraph_mpx_off	32	static
+screen_mpx.c:229:6:update_vumeter_mpx2	0	static
+screen_mpx.c:251:6:ButtonEventTelaMpx	8	static

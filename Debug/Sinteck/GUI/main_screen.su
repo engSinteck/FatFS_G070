@@ -1,0 +1,13 @@
+main_screen.c:433:13:update_main_screen	16	static
+main_screen.c:86:6:print_frequencia	40	static
+main_screen.c:124:6:print_pot	40	static
+main_screen.c:183:6:print_audio	40	static
+main_screen.c:222:6:print_temperatura	32	static
+main_screen.c:272:6:print_alarme	40	static
+main_screen.c:243:6:print_status	32	static
+main_screen.c:338:6:create_vumeter	32	static
+main_screen.c:55:6:main_screen	16	static
+main_screen.c:383:6:ButtonEventTelaPrincipal	8	static
+main_screen.c:395:6:main_screen_exit	8	static
+main_screen.c:416:6:bargraph_off	32	static
+main_screen.c:424:10:map_mpx_2	8	static

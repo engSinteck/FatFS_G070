@@ -5,7 +5,7 @@ lv_group.c:615:13:refresh_theme	0	static
 lv_group.c:691:13:obj_to_foreground	16	static
 lv_group.c:625:13:focus_next_core.part.0	40	static
 lv_group.c:53:6:lv_group_init	8	static
-lv_group.c:62:14:lv_group_create	8	static
+lv_group.c:62:14:lv_group_create	16	static
 lv_group.c:91:6:lv_group_del	8	static
 lv_group.c:198:6:lv_group_remove_all_objs	8	static
 lv_group.c:264:6:lv_group_focus_next	8	static
@@ -25,6 +25,7 @@ lv_group.c:417:12:lv_group_get_focused	0	static
 lv_group.c:297:10:lv_group_send_data	16	static
 lv_group.c:350:6:lv_group_set_editing	16	static
 lv_group.c:221:6:lv_group_focus_obj	16	static
+lv_group.c:431:24:lv_group_get_user_data	0	static
 lv_group.c:442:25:lv_group_get_style_mod_cb	0	static
 lv_group.c:453:25:lv_group_get_style_mod_edit_cb	0	static
 lv_group.c:464:21:lv_group_get_focus_cb	0	static

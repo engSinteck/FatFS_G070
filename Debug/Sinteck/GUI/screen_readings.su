@@ -1,0 +1,15 @@
+screen_readings.c:232:13:btn_event_next_r	8	static
+screen_readings.c:264:13:btn_event_esc_r	8	static
+screen_readings.c:88:6:create_vumeter_swr_1	32	static
+screen_readings.c:115:6:create_vumeter_fwd_1	32	static
+screen_readings.c:142:6:print_fwd_1	32	static
+screen_readings.c:164:6:print_swr_1	32	static
+screen_readings.c:186:6:update_vumeter_swr_1	24	static
+screen_readings.c:199:6:update_vumeter_fwd_1	24	static
+screen_readings.c:291:13:update_reading	24	static
+screen_readings.c:211:6:btn_next_r	16	static
+screen_readings.c:52:6:screen_readings	16	static
+screen_readings.c:242:6:btn_esc_r	16	static
+screen_readings.c:274:6:bargraph_fwd_off	32	static
+screen_readings.c:282:6:bargraph_swr_off	32	static
+screen_readings.c:305:6:ButtonEventTelaReadings	8	static

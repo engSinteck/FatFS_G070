@@ -1,0 +1,5 @@
+screen_sel.c:171:13:btn_event_btn1	8	static
+screen_sel.c:55:6:create_buttons	16	static
+screen_sel.c:29:6:screen_sel	16	static
+screen_sel.c:111:6:sel_screen_send_button	8	static
+screen_sel.c:141:6:ButtonEventTelaSelecao	8	static

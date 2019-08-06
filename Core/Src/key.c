@@ -10,10 +10,14 @@
 #include "lvgl/lvgl.h"
 #include "stdio.h"
 #include "string.h"
+#include "Sinteck/GUI/GUI_EX15-XT.h"
 
 extern TIM_HandleTypeDef htim17;
 extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart2;
+
+extern void main_screen_teste(uint8_t flag);
+extern void sel_screen(uint8_t flag);
 
 extern uint16_t tft_pwm, pwm_rf_value;
 extern long int frequencia;
@@ -469,6 +473,7 @@ void ButtonEvent(void)
 	KeyboardEvent();
 }
 
+
 // Eventos Teclado
 void KeyboardEvent(void)
 {
@@ -484,10 +489,8 @@ void KeyboardEvent(void)
 			case EVT_PBTN_INPUT:
 				if(event[2] == PBTN_SCLK) {
 					if(event[1] == KEY_DN) {
-
 					}
 					else if(event[1] == KEY_UP) {
-
 					}
 					else if(event[1] == KEY_ENTER) {
 
@@ -498,8 +501,9 @@ void KeyboardEvent(void)
 					else if(event[1] == KEY_ENCODER) {
 
 					}
-					//sprintf(buffer, "\r\nButton %d: single click.", event[1]);
-					//HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
+					main_screen_exit();
+					sprintf(buffer, "\r\nButton %d: single click.", event[1]);
+					HAL_UART_Transmit(&huart2, (uint8_t*)buffer, strlen(buffer), HAL_MAX_DELAY);
 				}
 				else if(event[2] == PBTN_LCLK) {
 					if(event[1] == KEY_DN) {

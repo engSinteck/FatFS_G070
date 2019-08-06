@@ -5,4 +5,4 @@ lv_line.c:136:6:lv_line_set_auto_size	16	static
 lv_line.c:154:6:lv_line_set_y_invert	16	static
 lv_line.c:173:6:lv_line_get_auto_size	8	static
 lv_line.c:185:6:lv_line_get_y_invert	8	static
-lv_line.c:50:12:lv_line_create	16	static
+lv_line.c:50:12:lv_line_create	24	static

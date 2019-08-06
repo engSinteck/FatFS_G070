@@ -1,0 +1,10 @@
+screen_reading_temp.c:98:13:btn_event_next_temp	8	static
+screen_reading_temp.c:129:13:btn_event_prev_temp	8	static
+screen_reading_temp.c:77:6:btn_next_temp	16	static
+screen_reading_temp.c:108:6:btn_prev_temp	16	static
+screen_reading_temp.c:140:6:print_temp_1	32	static
+screen_reading_temp.c:162:6:create_vumeter_temperatura	32	static
+screen_reading_temp.c:201:6:update_vumeter_temperatura	32	static
+screen_reading_temp.c:45:6:screen_reading_temp	16	static
+screen_reading_temp.c:229:13:update_reading_temp	16	static
+screen_reading_temp.c:236:6:ButtonEventTelaReading_Temp	8	static

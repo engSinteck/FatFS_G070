@@ -1,0 +1,6 @@
+screen_reading_status.c:165:13:update_screen_status	8	static
+screen_reading_status.c:91:13:btn_event_prev_status	8	static
+screen_reading_status.c:70:6:btn_prev_status	16	static
+screen_reading_status.c:102:6:print_reading_status	32	static
+screen_reading_status.c:40:6:screen_reading_status	16	static
+screen_reading_status.c:188:6:ButtonEventTelaReading_Status	8	static

@@ -1,0 +1,10 @@
+screen_reading_efic.c:98:13:btn_event_next_efic	8	static
+screen_reading_efic.c:129:13:btn_event_prev_efic	8	static
+screen_reading_efic.c:77:6:btn_next_efic	16	static
+screen_reading_efic.c:108:6:btn_prev_efic	16	static
+screen_reading_efic.c:139:6:create_vumeter_eficiencia	32	static
+screen_reading_efic.c:169:6:update_vumeter_eficiencia	24	static
+screen_reading_efic.c:222:13:update_screen_efic	16	static
+screen_reading_efic.c:189:6:print_eficiencia	32	static
+screen_reading_efic.c:44:6:screen_reading_efic	16	static
+screen_reading_efic.c:239:6:ButtonEventTelaReading_Efic	8	static

@@ -1,6 +1,6 @@
 lv_obj.c:2329:13:lv_event_mark_deleted	0	static
 lv_obj.c:2206:13:refresh_children_position	24	static
-lv_obj.c:75:6:lv_init	8	static
+lv_obj.c:75:6:lv_init	16	static
 lv_obj.c:459:6:lv_obj_del_async	8	static
 lv_obj.c:1065:6:lv_obj_set_auto_realign	0	static
 lv_obj.c:1100:6:lv_obj_set_ext_click_area	0	static
@@ -34,7 +34,7 @@ lv_obj.c:674:6:lv_obj_set_y	8	static
 lv_obj.c:757:6:lv_obj_align	40	static
 lv_obj.c:902:6:lv_obj_align_origo	48	static
 lv_obj.c:1046:6:lv_obj_realign	24	static
-lv_obj.c:131:12:lv_obj_create	24	static
+lv_obj.c:131:12:lv_obj_create	32	static
 lv_obj.c:532:6:lv_obj_set_parent	32	static
 lv_obj.c:685:6:lv_obj_set_size	24	static
 lv_obj.c:734:6:lv_obj_set_width	8	static
@@ -89,5 +89,8 @@ lv_obj.c:1997:16:lv_obj_get_design_cb	0	static
 lv_obj.c:2007:15:lv_obj_get_event_cb	0	static
 lv_obj.c:2022:8:lv_obj_get_ext_attr	0	static
 lv_obj.c:2033:6:lv_obj_get_type	48	static
+lv_obj.c:2061:20:lv_obj_get_user_data	0	static
+lv_obj.c:2071:22:lv_obj_get_user_data_ptr	0	static
+lv_obj.c:2081:6:lv_obj_set_user_data	16	static
 lv_obj.c:2093:8:lv_obj_get_group	0	static
 lv_obj.c:2103:6:lv_obj_is_focused	8	static

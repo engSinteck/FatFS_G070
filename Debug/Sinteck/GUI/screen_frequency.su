@@ -1,0 +1,7 @@
+screen_frequency.c:72:6:create_vumeter_freq	32	static
+screen_frequency.c:93:6:print_freq	40	static
+screen_frequency.c:145:6:update_vumeter	32	static
+screen_frequency.c:208:6:prog_freq	56	static
+screen_frequency.c:44:6:screen_freq	16	static
+screen_frequency.c:347:6:update_style_roller_freq	16	static
+screen_frequency.c:451:6:ButtonEventTelaFrequencia	64	static

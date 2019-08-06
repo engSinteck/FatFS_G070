@@ -1,7 +1,7 @@
 lv_lmeter.c:363:19:lv_lmeter_coord_round	0	static
 lv_lmeter.c:244:13:lv_lmeter_design	152	static
 lv_lmeter.c:331:17:lv_lmeter_signal	24	static
-lv_lmeter.c:54:12:lv_lmeter_create	16	static
+lv_lmeter.c:54:12:lv_lmeter_create	24	static
 lv_lmeter.c:120:6:lv_lmeter_set_value	16	static
 lv_lmeter.c:136:6:lv_lmeter_set_range	24	static
 lv_lmeter.c:160:6:lv_lmeter_set_scale	16	static

@@ -56,22 +56,22 @@ void my_print(lv_log_level_t level, const char * file, uint32_t line, const char
     if(level >= LV_LOG_LEVEL) {
       //Show the log level if you want
       if(level == LV_LOG_LEVEL_TRACE)  {
-         HAL_UART_Transmit(&huart1, (uint8_t*)"\nTrace:", 7, HAL_MAX_DELAY);
+         HAL_UART_Transmit(&huart2, (uint8_t*)"\nTrace:", 7, HAL_MAX_DELAY);
       }
       else if(level == LV_LOG_LEVEL_INFO) {
-    	  HAL_UART_Transmit(&huart1, (uint8_t*)"\nInfo:", 6, HAL_MAX_DELAY);
+    	  HAL_UART_Transmit(&huart2, (uint8_t*)"\nInfo:", 6, HAL_MAX_DELAY);
       }
       else if(level == LV_LOG_LEVEL_WARN) {
-    	  HAL_UART_Transmit(&huart1, (uint8_t*)"\nWarn:", 6, HAL_MAX_DELAY);
+    	  HAL_UART_Transmit(&huart2, (uint8_t*)"\nWarn:", 6, HAL_MAX_DELAY);
       }
       else if(level == LV_LOG_LEVEL_ERROR) {
-    	  HAL_UART_Transmit(&huart1, (uint8_t*)"\nERROR:", 7, HAL_MAX_DELAY);
+    	  HAL_UART_Transmit(&huart2, (uint8_t*)"\nERROR:", 7, HAL_MAX_DELAY);
       }
       else {
-       	  HAL_UART_Transmit(&huart1, (uint8_t*)"\nERRO:", 6, HAL_MAX_DELAY);
+       	  HAL_UART_Transmit(&huart2, (uint8_t*)"\nERRO:", 6, HAL_MAX_DELAY);
       }
 
-      HAL_UART_Transmit(&huart1, (uint8_t*)dsc, strlen(dsc), HAL_MAX_DELAY);
+      HAL_UART_Transmit(&huart2, (uint8_t*)dsc, strlen(dsc), HAL_MAX_DELAY);
       //You can write 'file' and 'line' too similary if required.
     }
 #endif

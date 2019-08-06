@@ -14,7 +14,7 @@ lv_mbox.c:495:13:mbox_realign	24	static
 lv_mbox.c:427:17:lv_mbox_signal	40	static
 lv_mbox.c:175:6:lv_mbox_set_text	16	static
 lv_mbox.c:274:6:lv_mbox_set_style	16	static
-lv_mbox.c:65:12:lv_mbox_create	24	static
+lv_mbox.c:65:12:lv_mbox_create	32	static
 lv_mbox.c:140:6:lv_mbox_add_btns	24	static
 lv_mbox.c:395:6:lv_mbox_get_recolor	8	static
 lv_mbox.c:410:12:lv_mbox_get_btnm	8	static

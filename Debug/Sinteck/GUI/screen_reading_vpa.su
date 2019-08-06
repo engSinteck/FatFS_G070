@@ -1,0 +1,13 @@
+screen_reading_vpa.c:109:13:btn_event_next_vpa	8	static
+screen_reading_vpa.c:140:13:btn_event_prev_vpa	8	static
+screen_reading_vpa.c:88:6:btn_next_vpa	16	static
+screen_reading_vpa.c:119:6:btn_prev_vpa	16	static
+screen_reading_vpa.c:150:6:print_vpa_1	32	static
+screen_reading_vpa.c:173:6:print_ipa_1	32	static
+screen_reading_vpa.c:196:6:create_vumeter_vpa_1	32	static
+screen_reading_vpa.c:223:6:create_vumeter_ipa_1	32	static
+screen_reading_vpa.c:250:6:update_vumeter_vpa_1	24	static
+screen_reading_vpa.c:271:6:update_vumeter_ipa_1	24	static
+screen_reading_vpa.c:53:6:screen_reading_vpa	16	static
+screen_reading_vpa.c:292:13:update_screen_vpa	16	static
+screen_reading_vpa.c:303:6:ButtonEventTelaReading_Vpa	8	static

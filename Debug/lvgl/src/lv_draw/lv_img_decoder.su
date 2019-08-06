@@ -1,5 +1,5 @@
 lv_img_decoder.c:477:6:lv_img_decoder_built_in_close	16	static
-lv_img_decoder.c:303:10:lv_img_decoder_built_in_open	40	static
+lv_img_decoder.c:303:10:lv_img_decoder_built_in_open	48	static
 lv_img_decoder.c:254:10:lv_img_decoder_built_in_info	32	static
 lv_img_decoder.c:443:10:lv_img_decoder_built_in_read_line	232	static
 lv_img_decoder.c:88:10:lv_img_decoder_get_info	32	static

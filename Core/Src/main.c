@@ -33,11 +33,14 @@
 #include "misc.h"
 #include "key.h"
 #include "w25qxx.h"
+//
+#include "Sinteck/GUI/GUI_EX15-XT.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+void main_screen_teste(uint8_t flag);
+void sel_screen(uint8_t flag);
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -56,14 +59,22 @@ extern FIL SDFile;       /* File  object for SD */
 extern char SDPath[];   /* SD logical drive path */
 
 static lv_obj_t * Tela_Principal;
+static lv_obj_t * Tela_Sel;
 static lv_obj_t * img_fundo;
+static lv_obj_t * img_fundo1;
 static lv_style_t style_fundo;
 
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+uint32_t falha = 0;
+long int frequencia = 8750;
+uint32_t TelaAtiva;
+uint8_t Cfg_Audio, Cfg_Stereo = 1, Cfg_Processador, Cfg_Clipper, Cfg_Emphase, mp3_status, MenuSel, RFEnable;
+uint8_t pll_lock_status;
+uint32_t mpx;
+float temperatura, reflected, forward, f_vpa, f_ipa, target, Max_Reflected, max_rfl;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -89,6 +100,7 @@ uint16_t tft_pwm;
 uint32_t timer_key = 0;
 static lv_disp_buf_t disp_buf;
 static lv_color_t buf[LV_HOR_RES_MAX * 10];		// Declare a buffer for 10 lines
+static lv_color_t buf2[LV_HOR_RES_MAX * 10];		// Declare a buffer for 10 lines
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -171,10 +183,9 @@ int main(void)
   // Inicia Tecla
   KeyboardInit(0x01);
 
-
-  //lv_disp_buf_init(&disp_buf, buf, buf2, LV_HOR_RES_MAX * 10);    //Initialize the display buffer
-    lv_disp_buf_init(&disp_buf, buf, NULL, LV_HOR_RES_MAX * 10);    //Initialize the display buffer
-    //lv_log_register_print_cb(my_print);
+  lv_disp_buf_init(&disp_buf, buf, buf2, LV_HOR_RES_MAX * 10);    //Initialize the display buffer
+    //lv_disp_buf_init(&disp_buf, buf, NULL, LV_HOR_RES_MAX * 10);    //Initialize the display buffer
+    lv_log_register_print_cb(my_print);
     lv_init();
 
     // LVGL Setup
@@ -192,16 +203,15 @@ int main(void)
     if (ProcessStatus == APP_ERROR)
     {
       //Error_Handler();
-      //sprintf(buffer, "STM32G070 FatFs ProcessStatus Error...\n\r");
-      //HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      sprintf(buffer, "STM32G070 FatFs ProcessStatus Error...\n\r");
+      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
     }
     else if (ProcessStatus == APP_OK)
 	{
       //Success_Handler();
-      //sprintf(buffer, "STM32G070 FatFs - ProcessStatus OK...\n\r");
-      //HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
+      sprintf(buffer, "STM32G070 FatFs - ProcessStatus OK...\n\r");
+      HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
 
-/*
       if(f_mount(&SDFatFs, "", 0) != FR_OK) {
     	  sprintf(buffer, "STM32G070 FatFs - Mount Drive ERROR...\n\r");
     	  HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
@@ -253,15 +263,16 @@ int main(void)
           }
       }
       // Test Open Tela_0.bin
-      if(f_open(&SDFile, "tela_0.bin", FA_READ) != FR_OK) {
-    	  sprintf(buffer, "STM32G070 FatFs - Open Tela_0.bin Error...\n\r");
+      fr = f_open(&SDFile, "str_o.bin", FA_READ);
+      if(fr != FR_OK) {
+    	  sprintf(buffer, "STM32G070 FatFs - Stereo_OFF.bin Error...Result: %d\n\r", fr);
           HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
       }
       else {
-          sprintf(buffer, "STM32G070 FatFs - Open File Tela_0.bin...\n\r");
+          sprintf(buffer, "STM32G070 FatFs - Open File Symbol Stereo.bin... Result: %d\n\r", fr);
           HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
       }
-
+/*
       if(f_mount(NULL, "", 1) != FR_OK) {
           sprintf(buffer, "STM32G070 FatFs - Umount Drive ERROR...\n\r");
           HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
@@ -279,17 +290,9 @@ int main(void)
   HAL_UART_Transmit(&huart2, (uint8_t *)&buffer, strlen(buffer), 0xFFFF);
 
   // Create a Screen
-  Tela_Principal = lv_obj_create(NULL, NULL);
-  lv_style_copy(&style_fundo, &lv_style_plain_color);
-  style_fundo.body.main_color = LV_COLOR_BLACK;
-  style_fundo.body.grad_color = LV_COLOR_BLACK;
-  lv_obj_set_style(Tela_Principal, &style_fundo); 					// Configura o estilo criado
-
-  img_fundo = lv_img_create(Tela_Principal, NULL);
-  lv_img_set_src(img_fundo, "F:tela_0.bin");
-  lv_obj_set_protect(img_fundo, LV_PROTECT_POS);
-
-  lv_scr_load(Tela_Principal);
+  //main_screen_teste(0);
+  //sel_screen(0);
+  main_screen();
 
   /* USER CODE END 2 */
 
@@ -311,7 +314,7 @@ int main(void)
 	    // Eventos da GUI LittleVG
 	  	  lv_task_handler();
 
-	    //HAL_Delay(10);
+	    HAL_Delay(200);
   }
   /* USER CODE END 3 */
 }
@@ -900,6 +903,47 @@ void Success_Handler(void)
 //  {
 //  }
 }
+
+
+void main_screen_teste(uint8_t flag)
+{
+	  // Create a Screen
+	  if(flag == 1) lv_obj_del(Tela_Sel);
+	  Tela_Principal = lv_obj_create(NULL, NULL);
+//	  lv_style_copy(&style_fundo, &lv_style_plain_color);
+//	  style_fundo.body.main_color = LV_COLOR_BLACK;
+//	  style_fundo.body.grad_color = LV_COLOR_BLACK;
+//	  lv_obj_set_style(Tela_Principal, &style_fundo); 					// Configura o estilo criado
+
+	  img_fundo = lv_img_create(Tela_Principal, NULL);
+	  lv_img_set_src(img_fundo, "F:tela_0.bin");
+	  lv_obj_set_pos(img_fundo, 0, 0);      /*Set the positions*/
+	  lv_obj_set_drag(img_fundo, true);
+	  lv_obj_set_protect(img_fundo, LV_PROTECT_POS);
+
+	  lv_scr_load(Tela_Principal);
+}
+
+void sel_screen(uint8_t flag)
+{
+	  // Create a Screen
+	  if(flag == 1) lv_obj_del(Tela_Principal);
+	  Tela_Sel = lv_obj_create(NULL, NULL);
+//	  lv_style_copy(&style_fundo, &lv_style_plain_color);
+//	  style_fundo.body.main_color = LV_COLOR_BLACK;
+//	  style_fundo.body.grad_color = LV_COLOR_BLACK;
+//	  lv_obj_set_style(Tela_Sel, &style_fundo); 					// Configura o estilo criado
+
+	  img_fundo1 = lv_img_create(Tela_Sel, NULL);
+	  lv_img_set_src(img_fundo1, "F:/tela_sel.bin");
+	  lv_obj_set_pos(img_fundo1, 0, 0);      /*Set the positions*/
+	  lv_obj_set_drag(img_fundo1, true);
+	  lv_obj_set_protect(img_fundo1, LV_PROTECT_POS);
+
+	  lv_scr_load(Tela_Sel);
+}
+
+
 /* USER CODE END 4 */
 
 /**
@@ -919,9 +963,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-//  if (htim->Instance == TIM6) {
-//	  lv_tick_inc(1);
-// }
+  if (htim->Instance == TIM6) {
+	  lv_tick_inc(1);
+  }
   if (htim->Instance == TIM6) {
    	  timer_key++;
    	  if(timer_key >= 40) {
